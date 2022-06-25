@@ -2,14 +2,14 @@ function Paginate({
   totalItems,
   perPage,
   handlePageChange,
-  offset = 3,
+  offset,
   currentPage,
 }) {
   const totalPages = Math.ceil(totalItems / perPage);
   const arrays = new Array(totalPages).fill(0);
 
   return (
-    <ul style={{ 'margin': '50px 0px' }}>
+    <ul style={{ margin: '50px 0px' }}>
       <li className='paginate-li'>
         <a href='#' onClick={handlePageChange}>
           1
@@ -27,12 +27,12 @@ function Paginate({
       {arrays.map((arr, index) => {
         if (
           index + 1 < currentPage + offset &&
-          index + 1> currentPage - offset &&
+          index + 1 > currentPage - offset &&
           index !== 0 &&
           index !== totalPages - 1
         ) {
           return (
-            <li className='paginate-li'>
+            <li key={index} className='paginate-li'>
               <a href='#' onClick={handlePageChange}>
                 {index + 1}
               </a>

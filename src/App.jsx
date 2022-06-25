@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from './services/api';
 
 import PokemonCard from './PokemonCard.jsx';
 import Paginate from './Paginate';
@@ -15,9 +15,10 @@ function App() {
   });
   const [totalPokemons, setTotalPokemons] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isShowingFavorite, setIsShowingFavorite] = useState(false);
 
   const fetchPokemons = async url => {
-    const response = await axios.get(url);
+    const response = await api.get(url);
     setPagination({
       ...pagination,
       prev: response.data.previous,
@@ -39,20 +40,30 @@ function App() {
     );
   };
 
-  const showFavorites = () => {
-    setPokemons(favorites);
-  };
-
-  const clearFavorites = () => {
-    setFavorites([]);
+  const handleFavorites = () => {
+    setIsShowingFavorite(!isShowingFavorite);
+    if (!isShowingFavorite) {
+      setTotalPokemons(favorites.length);
+      setPokemons(
+        favorites.slice((currentPage - 1) * 20, (currentPage - 1) * 20 + 20),
+      );
+    } else {
+      fetchPokemons('https://pokeapi.co/api/v2/pokemon');
+    }
   };
 
   const handlePageChange = e => {
-    fetchPokemons(
-      'https://pokeapi.co/api/v2/pokemon/?offset=' +
-        (Number(e.target.text) - 1) * 20,
-    );
-    setCurrentPage(Number(e.target.text));
+    const currentPage = Number(e.target.text);
+    if (isShowingFavorite) {
+      setPokemons(
+        favorites.slice((currentPage - 1) * 20, (currentPage - 1) * 20 + 20),
+      );
+    } else {
+      fetchPokemons(
+        'https://pokeapi.co/api/v2/pokemon/?offset=' + (currentPage - 1) * 20,
+      );
+      setCurrentPage(currentPage);
+    }
   };
 
   useEffect(() => {
@@ -64,7 +75,9 @@ function App() {
       <header>
         <h1>Pokémons Legacy</h1>
       </header>
-      <div>{JSON.stringify(favorites)}</div>
+      <button onClick={handleFavorites}>
+        {isShowingFavorite ? 'Hide Favorites' : 'Show Favorites'}{' '}
+      </button>
       <div className='pokemon-container'>
         {pokemons.map(pokemon => {
           return (
@@ -81,6 +94,7 @@ function App() {
       <Paginate
         totalItems={totalPokemons}
         perPage={20}
+        offset={3}
         handlePageChange={handlePageChange}
         currentPage={currentPage}
       />
