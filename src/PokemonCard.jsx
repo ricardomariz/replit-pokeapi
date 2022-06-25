@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from './services/api';
 
 export default function PokemonCard({
   pokemon,
@@ -11,7 +11,7 @@ export default function PokemonCard({
   const [isLoaded, setIsLoaded] = useState(false);
 
   const fetchPokemon = async url => {
-    const response = await axios.get(url);
+    const response = await api.get(url);
     setPokemonData(response.data);
     setIsLoaded(true);
   };
@@ -33,11 +33,18 @@ export default function PokemonCard({
   return (
     <div className='pokemon-card'>
       <div className='pokemon-name'>
-        <div className='pokemon-fav' onClick={handleFavorite} style={{ cursor: 'pointer' }}>
-          {favorites.includes(pokemon) ? <span class="fa fa-star checked"></span> : <span class="fa fa-star"></span>} 
+        <div
+          className='pokemon-fav'
+          onClick={handleFavorite}
+          style={{ cursor: 'pointer' }}
+        >
+          {favorites.includes(pokemon) ? (
+            <span className='fa fa-star checked'></span>
+          ) : (
+            <span className='fa fa-star'></span>
+          )}
         </div>
-        <div className="pokemon-name-text">{pokemon.name}</div>
-        
+        <div className='pokemon-name-text'>{`#${pokemonData.id} ${pokemon.name}`}</div>
       </div>
       <div className='pokemon-info'>
         <div className='pokemon-image'>
