@@ -49,6 +49,7 @@ export default function PokemonCard({
       </div>
       <div className='pokemon-info'>
         <div>123</div>
+        <div>teste fetch stream</div>
         <div className='pokemon-image'>
           <img src={pokemonData?.sprites?.front_default} width='150' />
         </div>
