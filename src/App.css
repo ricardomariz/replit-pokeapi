@@ -90,6 +90,10 @@ li {
   text-align: start;
 }
 
+.pokemon-stats, .pokemon-habilities {
+  height: 170px;
+}
+
 .footer-control {
   margin-top: 24px;
 }

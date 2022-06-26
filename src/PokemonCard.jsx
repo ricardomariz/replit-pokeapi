@@ -54,16 +54,13 @@ export default function PokemonCard({
           <ul>
             {isLoaded &&
               pokemonData.stats.map(stat => {
-                return (
-                  <li>{`${stat.stat.name}: ${stat.base_stat}`}
-                  </li>
-                );
+                return <li>{`${stat.stat.name}: ${stat.base_stat}`}</li>;
               })}
           </ul>
         </div>
         <div
           className='pokemon-image'
-          onClick={()=> pokemonData.moves.map((move)=> console.log(move.move.name, (move.version_group_details[0].level_learned_at !== 0)))}
+          onClick={() => console.log(pokemonData.moves[0])}
         >
           <img src={pokemonData?.sprites?.front_default} width='150' />
         </div>
@@ -71,13 +68,17 @@ export default function PokemonCard({
           Habilities<hr></hr>
           <ul>
             {isLoaded &&
-              pokemonData.moves.map(move => {
-                if (move.version_group_details[0].level_learned_at !== 0) {
-                return (
-                  <li>{`${move.move.name}: ${move.version_group_details[0].level_learned_at}`}
-                  </li>
-                )}
-              })}
+              pokemonData.moves
+                .filter(
+                  move => move.version_group_details[0].level_learned_at !== 0,
+                )
+                .map(move => {
+                  return (
+                    <li>
+                      {`${move.move.name}: ${move.version_group_details[0].level_learned_at}`}
+                    </li>
+                  );
+                })}
           </ul>
         </div>
       </div>
