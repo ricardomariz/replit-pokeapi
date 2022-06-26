@@ -48,7 +48,7 @@ export default function PokemonCard({
         <div className='pokemon-name-text'>{`#${pokemonData.id} ${pokemon.name}`}</div>
       </div>
       <div className='pokemon-info'>
-        <div>12345</div>
+        <div>123</div>
         <div className='pokemon-image'>
           <img src={pokemonData?.sprites?.front_default} width='150' />
         </div>
