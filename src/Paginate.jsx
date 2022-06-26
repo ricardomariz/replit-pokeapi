@@ -21,8 +21,12 @@ function Paginate({
   return (
     <>
       <div>
-        <span>Pokemons per page:</span>
-        <select value={perPage} onChange={handlePerPageChange}>
+        <span className='paginate-per-page'>Pokemons per page:</span>
+        <select
+          className='paginate-per-page-select'
+          value={perPage}
+          onChange={handlePerPageChange}
+        >
           <option value='10'>10</option>
           <option value='20'>20</option>
           <option value='40'>40</option>
@@ -40,7 +44,11 @@ function Paginate({
           )}
 
           <li className='paginate-li'>
-            <a href='#' onClick={() => handlePageChange(1)}>
+            <a
+              href='#'
+              onClick={() => handlePageChange(1)}
+              className={currentPage == 1 ? 'active' : ''}
+            >
               1
             </a>
           </li>
@@ -60,7 +68,11 @@ function Paginate({
             ) {
               return (
                 <li key={index} className='paginate-li'>
-                  <a href='#' onClick={() => handlePageChange(index + 1)}>
+                  <a
+                    href='#'
+                    onClick={() => handlePageChange(index + 1)}
+                    className={currentPage === index + 1 ? 'active' : ''}
+                  >
                     {index + 1}
                   </a>
                 </li>
@@ -77,7 +89,11 @@ function Paginate({
           {totalPages !== 1 ? (
             <>
               <li className='paginate-li'>
-                <a href='#' onClick={() => handlePageChange(totalPages)}>
+                <a
+                  href='#'
+                  onClick={() => handlePageChange(totalPages)}
+                  className={currentPage === totalPages ? 'active' : ''}
+                >
                   {totalPages}
                 </a>
               </li>

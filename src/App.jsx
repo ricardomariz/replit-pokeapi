@@ -85,7 +85,7 @@ function App() {
       <header>
         <h1>Pokémons Legacy</h1>
       </header>
-      <button onClick={handleFavorites}>
+      <button className='favorite-button' onClick={handleFavorites}>
         {isShowingFavorite ? 'Hide Favorites' : 'Show Favorites'}{' '}
       </button>
 

@@ -103,12 +103,46 @@ main header h1 {
   margin-left: 0.25rem;
 }
 
+.favorite-button {
+  padding: 4px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  margin: 4px;
+}
+
+.favorite-button:hover {
+  background-color: #ddd;
+}
+
+.paginate-per-page {
+  margin-right: 4px;
+  font-weight: bold;
+}
+
+.paginate-per-page-select {
+  padding: 4px 0;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
 .paginate-li {
   display: inline;
   border: 1px solid #cecece;
   margin: 0 2px;
   padding: 0 5px;
   margin-bottom: 50px;
+}
+
+.paginate-li a {
+  color: black;
+  text-decoration: none;
+}
+
+.paginate-li a.active {
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 .normal {
