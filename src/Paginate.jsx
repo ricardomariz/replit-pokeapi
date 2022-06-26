@@ -83,7 +83,7 @@ function Paginate({
               {currentPage !== totalPages && (
                 <li className='paginate-li'>
                   <a href='#' onClick={() => handlePageChange(currentPage + 1)}>
-                    next =>
+                    next =&gt;
                   </a>
                 </li>
               )}
