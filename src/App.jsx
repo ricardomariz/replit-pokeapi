@@ -78,7 +78,20 @@ function App() {
       );
       setCurrentPage(currentPage);
     }
-  }, [currentPage, perPage, favorites]);
+  }, [currentPage, perPage]);
+
+  useEffect(() => {
+    // REPEAT THE CODE FROM LINE 65 - LOOK FOR IMPROVEMENT ON THE CODE
+    if (isShowingFavorite) {
+      setPokemons(
+        favorites.slice(
+          (currentPage - 1) * perPage,
+          (currentPage - 1) * perPage + perPage,
+        ),
+      );
+      setTotalPokemons(favorites.length);
+    }
+  }, [favorites]);
 
   return (
     <main>
