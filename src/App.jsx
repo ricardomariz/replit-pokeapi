@@ -6,6 +6,8 @@ import Paginate from './Paginate';
 
 import './App.css';
 
+const PER_PAGE = 25;
+
 function App() {
   const [pokemons, setPokemons] = useState([]);
   const [favorites, setFavorites] = useState([]);
@@ -45,30 +47,38 @@ function App() {
     if (!isShowingFavorite) {
       setTotalPokemons(favorites.length);
       setPokemons(
-        favorites.slice((currentPage - 1) * 20, (currentPage - 1) * 20 + 20),
+        favorites.slice(
+          (currentPage - 1) * PER_PAGE,
+          (currentPage - 1) * PER_PAGE + PER_PAGE,
+        ),
       );
-    } else {
-      fetchPokemons('https://pokeapi.co/api/v2/pokemon');
-    }
-  };
-
-  const handlePageChange = e => {
-    const currentPage = Number(e.target.text);
-    if (isShowingFavorite) {
-      setPokemons(
-        favorites.slice((currentPage - 1) * 20, (currentPage - 1) * 20 + 20),
-      );
+      setCurrentPage(1);
     } else {
       fetchPokemons(
-        'https://pokeapi.co/api/v2/pokemon/?offset=' + (currentPage - 1) * 20,
+        `https://pokeapi.co/api/v2/pokemon?offset=${
+          (currentPage - 1) * PER_PAGE
+        }&limit=${PER_PAGE}`,
       );
-      setCurrentPage(currentPage);
     }
   };
 
   useEffect(() => {
-    fetchPokemons('https://pokeapi.co/api/v2/pokemon');
-  }, []);
+    if (isShowingFavorite) {
+      setPokemons(
+        favorites.slice(
+          (currentPage - 1) * PER_PAGE,
+          (currentPage - 1) * PER_PAGE + PER_PAGE,
+        ),
+      );
+    } else {
+      fetchPokemons(
+        `https://pokeapi.co/api/v2/pokemon/?offset=${
+          (currentPage - 1) * PER_PAGE
+        }&limit=${PER_PAGE}`,
+      );
+      setCurrentPage(currentPage);
+    }
+  }, [currentPage]);
 
   return (
     <main>
@@ -93,9 +103,9 @@ function App() {
 
       <Paginate
         totalItems={totalPokemons}
-        perPage={20}
+        perPage={PER_PAGE}
         offset={3}
-        handlePageChange={handlePageChange}
+        setCurrentPage={setCurrentPage}
         currentPage={currentPage}
       />
     </main>
