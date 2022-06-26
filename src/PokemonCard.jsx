@@ -32,13 +32,13 @@ export default function PokemonCard({
   }, [pokemon]);
 
   return (
-    <div className='pokemon-card'>
+    <div
+      className='pokemon-card'
+      onClick={handleFavorite}
+      style={{ cursor: 'pointer' }}
+    >
       <div className='pokemon-name'>
-        <div
-          className='pokemon-fav'
-          onClick={handleFavorite}
-          style={{ cursor: 'pointer' }}
-        >
+        <div className='pokemon-fav'>
           {favorites.includes(pokemon) ? (
             <span className='fa fa-star checked'></span>
           ) : (
