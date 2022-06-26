@@ -69,6 +69,7 @@ function App() {
           (currentPage - 1) * perPage + perPage,
         ),
       );
+      setTotalPokemons(favorites.length);
     } else {
       fetchPokemons(
         `https://pokeapi.co/api/v2/pokemon/?offset=${
@@ -97,16 +98,20 @@ function App() {
         currentPage={currentPage}
       />
       <div className='pokemon-container'>
-        {pokemons.map(pokemon => {
-          return (
-            <PokemonCard
-              key={pokemon.name}
-              pokemon={pokemon}
-              favorites={favorites}
-              setFavorites={setFavorites}
-            />
-          );
-        })}
+        {pokemons.length > 0 ? (
+          pokemons.map(pokemon => {
+            return (
+              <PokemonCard
+                key={pokemon.name}
+                pokemon={pokemon}
+                favorites={favorites}
+                setFavorites={setFavorites}
+              />
+            );
+          })
+        ) : (
+          <p>No pokemons here. Go catch them all!</p>
+        )}
       </div>
     </main>
   );
