@@ -2,6 +2,9 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  background-color: black;
+  color: white
+
 }
 
 main {
@@ -18,7 +21,7 @@ main header {
 }
 
 main header h1 {
-  color: #13191c;
+  color: #8cabd9;
 }
 
 .pokemon-container {
@@ -68,6 +71,25 @@ main header h1 {
   padding: 1rem;
 }
 
+.pokemon-info{
+  display: flex;
+  justify-content:center
+}
+
+.pokemon-image {
+  flex-grow: 4;
+}
+
+ul {
+  list-style: none;
+  margin: 3px;
+  font-size: 10px;
+}
+
+li {
+  text-align: start;
+}
+
 .footer-control {
   margin-top: 24px;
 }
@@ -76,6 +98,7 @@ main header h1 {
   display: flex;
   justify-content: center;
   gap: 4px;
+  padding-bottom: 10px;
 }
 
 .pokemon-type-name {

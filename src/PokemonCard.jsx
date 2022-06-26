@@ -47,26 +47,53 @@ export default function PokemonCard({
         </div>
         <div className='pokemon-name-text'>{`#${pokemonData.id} ${pokemon.name}`}</div>
       </div>
+
       <div className='pokemon-info'>
-        <div>123</div>
-        <div>teste fetch stream</div>
-        <div className='pokemon-image'>
+        <div className='pokemon-stats'>
+          Base Stats<hr></hr>
+          <ul>
+            {isLoaded &&
+              pokemonData.stats.map(stat => {
+                return (
+                  <li>{`${stat.stat.name}: ${stat.base_stat}`}
+                  </li>
+                );
+              })}
+          </ul>
+        </div>
+        <div
+          className='pokemon-image'
+          onClick={()=> pokemonData.moves.map((move)=> console.log(move.move.name, (move.version_group_details[0].level_learned_at !== 0)))}
+        >
           <img src={pokemonData?.sprites?.front_default} width='150' />
         </div>
-
-        <div className='pokemon-type'>
-          {isLoaded &&
-            pokemonData.types.map((type, index) => {
-              return (
-                <div
-                  key={index}
-                  className={'pokemon-type-name' + ' ' + type.type.name}
-                >
-                  {type.type.name}
-                </div>
-              );
-            })}
+        <div className='pokemon-habilities'>
+          Habilities<hr></hr>
+          <ul>
+            {isLoaded &&
+              pokemonData.moves.map(move => {
+                if (move.version_group_details[0].level_learned_at !== 0) {
+                return (
+                  <li>{`${move.move.name}: ${move.version_group_details[0].level_learned_at}`}
+                  </li>
+                )}
+              })}
+          </ul>
         </div>
+      </div>
+
+      <div className='pokemon-type'>
+        {isLoaded &&
+          pokemonData.types.map((type, index) => {
+            return (
+              <div
+                key={index}
+                className={'pokemon-type-name' + ' ' + type.type.name}
+              >
+                {type.type.name}
+              </div>
+            );
+          })}
       </div>
     </div>
   );
