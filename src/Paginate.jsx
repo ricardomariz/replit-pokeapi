@@ -1,6 +1,7 @@
 function Paginate({
   totalItems,
   perPage,
+  setPerPage,
   setCurrentPage,
   offset,
   currentPage,
@@ -12,10 +13,23 @@ function Paginate({
     setCurrentPage(pageNumber);
   };
 
+  const handlePerPageChange = e => {
+    setPerPage(e.target.value);
+    setCurrentPage(1);
+  };
+
   return (
     <>
+      <div>
+        <span>Pokemons per page:</span>
+        <select value={perPage} onChange={handlePerPageChange}>
+          <option value='20'>20</option>
+          <option value='40'>40</option>
+          <option value='100'>100</option>
+        </select>
+      </div>
       {totalPages > 0 && (
-        <ul style={{ margin: '50px 0px' }}>
+        <ul style={{ margin: '20px 0px' }}>
           {currentPage > 1 && (
             <li className='paginate-li'>
               <a href='#' onClick={() => handlePageChange(currentPage - 1)}>

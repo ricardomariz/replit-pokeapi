@@ -6,8 +6,6 @@ import Paginate from './Paginate';
 
 import './App.css';
 
-const PER_PAGE = 25;
-
 function App() {
   const [pokemons, setPokemons] = useState([]);
   const [favorites, setFavorites] = useState([]);
@@ -18,6 +16,7 @@ function App() {
   const [totalPokemons, setTotalPokemons] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [isShowingFavorite, setIsShowingFavorite] = useState(false);
+  const [perPage, setPerPage] = useState(20);
 
   const fetchPokemons = async url => {
     const response = await api.get(url);
@@ -48,16 +47,16 @@ function App() {
       setTotalPokemons(favorites.length);
       setPokemons(
         favorites.slice(
-          (currentPage - 1) * PER_PAGE,
-          (currentPage - 1) * PER_PAGE + PER_PAGE,
+          (currentPage - 1) * perPage,
+          (currentPage - 1) * perPage + perPage,
         ),
       );
       setCurrentPage(1);
     } else {
       fetchPokemons(
         `https://pokeapi.co/api/v2/pokemon?offset=${
-          (currentPage - 1) * PER_PAGE
-        }&limit=${PER_PAGE}`,
+          (currentPage - 1) * perPage
+        }&limit=${perPage}`,
       );
     }
   };
@@ -66,19 +65,19 @@ function App() {
     if (isShowingFavorite) {
       setPokemons(
         favorites.slice(
-          (currentPage - 1) * PER_PAGE,
-          (currentPage - 1) * PER_PAGE + PER_PAGE,
+          (currentPage - 1) * perPage,
+          (currentPage - 1) * perPage + perPage,
         ),
       );
     } else {
       fetchPokemons(
         `https://pokeapi.co/api/v2/pokemon/?offset=${
-          (currentPage - 1) * PER_PAGE
-        }&limit=${PER_PAGE}`,
+          (currentPage - 1) * perPage
+        }&limit=${perPage}`,
       );
       setCurrentPage(currentPage);
     }
-  }, [currentPage]);
+  }, [currentPage, perPage]);
 
   return (
     <main>
@@ -88,6 +87,15 @@ function App() {
       <button onClick={handleFavorites}>
         {isShowingFavorite ? 'Hide Favorites' : 'Show Favorites'}{' '}
       </button>
+
+      <Paginate
+        totalItems={totalPokemons}
+        perPage={perPage}
+        setPerPage={setPerPage}
+        offset={3}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+      />
       <div className='pokemon-container'>
         {pokemons.map(pokemon => {
           return (
@@ -100,14 +108,6 @@ function App() {
           );
         })}
       </div>
-
-      <Paginate
-        totalItems={totalPokemons}
-        perPage={PER_PAGE}
-        offset={3}
-        setCurrentPage={setCurrentPage}
-        currentPage={currentPage}
-      />
     </main>
   );
 }
