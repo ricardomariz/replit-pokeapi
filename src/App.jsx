@@ -77,7 +77,7 @@ function App() {
       );
       setCurrentPage(currentPage);
     }
-  }, [currentPage, perPage]);
+  }, [currentPage, perPage, favorites]);
 
   return (
     <main>
