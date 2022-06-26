@@ -11,6 +11,7 @@ export default function PokemonCard({
   const [isLoaded, setIsLoaded] = useState(false);
 
   const fetchPokemon = async url => {
+    setIsLoaded(false);
     const response = await api.get(url);
     setPokemonData(response.data);
     setIsLoaded(true);
