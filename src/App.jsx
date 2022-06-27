@@ -9,6 +9,7 @@ import './App.css';
 function App() {
   const [pokemons, setPokemons] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const [pokeInfo, setPokeInfo] = useState([]);
   const [pagination, setPagination] = useState({
     prev: null,
     next: null,
@@ -17,6 +18,8 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [isShowingFavorite, setIsShowingFavorite] = useState(false);
   const [perPage, setPerPage] = useState(20);
+
+
 
   const fetchPokemons = async url => {
     const response = await api.get(url);
@@ -79,6 +82,7 @@ function App() {
     }
   }, [currentPage, perPage]);
 
+
   return (
     <main>
       <header>
@@ -96,6 +100,9 @@ function App() {
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
       />
+
+
+
       <div className='pokemon-container'>
         {pokemons.map(pokemon => {
           return (
@@ -104,6 +111,8 @@ function App() {
               pokemon={pokemon}
               favorites={favorites}
               setFavorites={setFavorites}
+              pokeInfo={pokeInfo}
+              setPokeInfo={setPokeInfo}
             />
           );
         })}

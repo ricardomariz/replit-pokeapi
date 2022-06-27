@@ -5,6 +5,8 @@ export default function PokemonCard({
   pokemon,
   setFavorites,
   favorites,
+  pokeInfo,
+  setPokeInfo,
   ...props
 }) {
   const [pokemonData, setPokemonData] = useState({});
@@ -14,10 +16,11 @@ export default function PokemonCard({
     setIsLoaded(false);
     const response = await api.get(url);
     setPokemonData(response.data);
+    
     setIsLoaded(true);
   };
 
-  const handleFavorite = e => {
+  const handleFavorite = () => {
     if (!favorites.includes(pokemon)) {
       setFavorites([...favorites, pokemon]);
     } else {
@@ -27,6 +30,15 @@ export default function PokemonCard({
     }
   };
 
+  const handlePokeInfo = () => {
+    if (!pokeInfo.includes(pokemon.name)) {
+      setPokeInfo([...pokeInfo, pokemon.name]);
+    } else {
+      setPokeInfo(pokeInfo.filter(pokename => pokename !== pokemon.name));
+    }
+    console.log(pokemonData)
+  };
+
   useEffect(() => {
     fetchPokemon(pokemon.url);
   }, [pokemon]);
@@ -34,11 +46,11 @@ export default function PokemonCard({
   return (
     <div
       className='pokemon-card'
-      onClick={handleFavorite}
+      onClick={handlePokeInfo}
       style={{ cursor: 'pointer' }}
     >
       <div className='pokemon-name'>
-        <div className='pokemon-fav'>
+        <div className='pokemon-fav' onClick={handleFavorite}>
           {favorites.includes(pokemon) ? (
             <span className='fa fa-star checked'></span>
           ) : (
@@ -49,22 +61,21 @@ export default function PokemonCard({
       </div>
 
       <div className='pokemon-info'>
-        <div className='pokemon-stats'>
-          Base Stats<hr></hr>
-          <ul>
-            {isLoaded &&
-              pokemonData.stats.map(stat => {
-                return <li>{`${stat.stat.name}: ${stat.base_stat}`}</li>;
-              })}
-          </ul>
-        </div>
-        <div
-          className='pokemon-image'
-          onClick={() => console.log(pokemonData.moves[0])}
-        >
+        {pokeInfo.includes(pokemon.name) && (
+          <div className='pokemon-stats'>
+            Base Stats<hr></hr>
+            <ul>
+              {isLoaded &&
+                pokemonData.stats.map(stat => {
+                  return <li>{`${stat.stat.name}: ${stat.base_stat}`}</li>;
+                })}
+            </ul>
+          </div>
+        )}
+        <div className='pokemon-image' onClick={handlePokeInfo}>
           <img src={pokemonData?.sprites?.front_default} width='150' />
         </div>
-        <div className='pokemon-habilities'>
+        {pokeInfo.includes(pokemon.name) && <div className='pokemon-habilities'>
           Habilities<hr></hr>
           <ul>
             {isLoaded &&
@@ -80,7 +91,7 @@ export default function PokemonCard({
                   );
                 })}
           </ul>
-        </div>
+        </div>}
       </div>
 
       <div className='pokemon-type'>

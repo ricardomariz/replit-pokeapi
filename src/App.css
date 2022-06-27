@@ -29,6 +29,7 @@ main header h1 {
   justify-content: space-around;
   flex-wrap: wrap;
   gap: 2.5rem;
+  margin: 15px;
 }
 
 .pokemon-card {
@@ -68,22 +69,23 @@ main header h1 {
 }
 
 .pokemon-card .pokemon-info {
-  padding: 1rem;
+  padding: 0rem;
 }
+
+
 
 .pokemon-info{
   display: flex;
-  justify-content:center
+  justify-content:center;
 }
 
-.pokemon-image {
-  flex-grow: 4;
-}
 
-ul {
+
+.pokemon-stats > ul, .pokemon-habilities > ul {
   list-style: none;
-  margin: 3px;
+  margin: 3px 0px;
   font-size: 10px;
+  width: 100px;
 }
 
 li {
@@ -91,7 +93,8 @@ li {
 }
 
 .pokemon-stats, .pokemon-habilities {
-  height: 170px;
+  max-height: 150px;
+  overflow-y:auto
 }
 
 .footer-control {
