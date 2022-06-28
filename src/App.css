@@ -77,8 +77,15 @@ main header h1 {
 .pokemon-info{
   display: flex;
   justify-content:center;
+  align-items: center;
+  flex: 1;
+
+  
 }
 
+.pokemon-info > .pokemon-image, .pokemon-info > .pokemon-stats, .pokemon-info > .pokemon-habilities{
+  flex: 1;
+}
 
 
 .pokemon-stats > ul, .pokemon-habilities > ul {
